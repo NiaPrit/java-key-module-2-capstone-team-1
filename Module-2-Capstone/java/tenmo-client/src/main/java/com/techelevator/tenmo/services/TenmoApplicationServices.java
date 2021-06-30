@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
+import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.account.Account;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
@@ -18,8 +19,8 @@ public class TenmoApplicationServices {
         this.BASE_URL_API = aUrl;
     }
 
-    public AuthenticatedUser[] getCurentBal(long accountId) {
-        return theApi.getForObject(BASE_URL_API + "/currentbalance/" + accountId, AuthenticatedUser[].class);
+    public AuthenticatedUser[] getCurentBal(int accountId) {
+        return theApi.getForObject(BASE_URL_API + "accounts/currentbalance/" + accountId, AuthenticatedUser[].class);
 
     }
 

@@ -2,7 +2,7 @@ package com.techelevator.tenmo.models.account;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
+
 
 import javax.sql.DataSource;
 
