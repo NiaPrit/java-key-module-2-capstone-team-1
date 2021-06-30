@@ -20,7 +20,7 @@ public class ApiController {
         this.theAccountData = accountMethod;
     }
 
-    @RequestMapping (path = "/currentbalance/{id}",method = RequestMethod.GET)
+    @RequestMapping (path = "/{id}/currentbalance",method = RequestMethod.GET)
     public double getbalance (@PathVariable Long id){
         return  theAccountData.getCurrentBal(id);
 
