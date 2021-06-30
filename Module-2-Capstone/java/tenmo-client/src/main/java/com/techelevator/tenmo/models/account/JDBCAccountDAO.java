@@ -2,10 +2,6 @@ package com.techelevator.tenmo.models.account;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-<<<<<<< HEAD
-=======
-
->>>>>>> ac7c8a6643a0d86b81380c45afc8b86e544cb052
 
 import javax.sql.DataSource;
 
@@ -18,15 +14,15 @@ public class JDBCAccountDAO implements AccountDAO{
    }
 
     @Override
-    public double getCurrentBal(long accountId) {
-      double currentBal = 0;
-      String searchString = "select * from accounts where account_id = ?";
+    public Account currentAccount(long accountId) {
+        Account currentAccount =  new Account();
+        String searchString = "select * from accounts where account_id = ?";
         SqlRowSet results = dao.queryForRowSet(searchString,accountId);
         if(results.next()){
-          Account accountResult = mapRowToAccount(results);
-           currentBal = accountResult.getBalance();
+
+            return currentAccount = mapRowToAccount(results);
         }
-        return currentBal;
+        return null;
     }
 
     private Account mapRowToAccount (SqlRowSet results){

@@ -2,6 +2,7 @@ package com.techelevator.view;
 
 
 import com.techelevator.tenmo.models.User;
+import com.techelevator.tenmo.models.account.Account;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -75,7 +76,12 @@ public class ConsoleService {
 		} while(result == null);
 		return result;
 	}
-	private double getCurrentBalFromUser (User currentUser) {
-		double
+	public void getCurrentBalFromUser (Account currentAccount) {
+		System.out.println("Your current account balance is: $" + currentAccount.getBalance());
+	}
+
+	public void getAllUsers (User[] users){
+	System.out.println("-".repeat(50));
+	System.out.println()
 	}
 }

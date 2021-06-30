@@ -19,11 +19,13 @@ public class TenmoApplicationServices {
         this.BASE_URL_API = aUrl;
     }
 
-    public double getCurentBal(int accountId) {
-        return theApi.getForObject(BASE_URL_API + "accounts/currentbalance/" + accountId, double.class);
+    public Account getCurentBal(int accountId) {
+        return theApi.getForObject(BASE_URL_API + "accounts/" + accountId + "/currentbalance", Account.class);
 
     }
-
+    public User[] listUsers(){
+        return theApi.getForObject(BASE_URL_API + "users",User[].class);
+    }
 
 
 }

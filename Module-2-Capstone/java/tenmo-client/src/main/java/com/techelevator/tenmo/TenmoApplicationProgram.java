@@ -74,6 +74,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewCurrentBalance() {
 		// TODO - Put code for this process here
+		console.getCurrentBalFromUser(services.getCurentBal(currentUser.getUser().getId()));
     }
 
 	private void viewTransferHistory() {
