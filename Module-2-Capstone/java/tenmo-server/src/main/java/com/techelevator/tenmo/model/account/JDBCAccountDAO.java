@@ -17,15 +17,15 @@ public class JDBCAccountDAO implements AccountDAO{
    }
 
     @Override
-    public double getCurrentBal(long accountId) {
-      double currentBal = 0;
+    public Account currentAccount(long accountId) {
+     Account currentAccount =  new Account();
       String searchString = "select * from accounts where account_id = ?";
         SqlRowSet results = dao.queryForRowSet(searchString,accountId);
         if(results.next()){
-          Account accountResult = mapRowToAccount(results);
-           currentBal = accountResult.getBalance();
+
+            return currentAccount = mapRowToAccount(results);
         }
-        return currentBal;
+        return null;
     }
 
     private Account mapRowToAccount (SqlRowSet results){

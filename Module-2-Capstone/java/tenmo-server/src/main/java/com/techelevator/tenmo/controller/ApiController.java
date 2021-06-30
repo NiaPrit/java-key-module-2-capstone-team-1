@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.controller;
 
+import com.techelevator.tenmo.model.account.Account;
 import com.techelevator.tenmo.model.account.AccountDAO;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,9 @@ public class ApiController {
         this.theAccountData = accountMethod;
     }
 
-    @RequestMapping (path = "/currentbalance/{id}",method = RequestMethod.GET)
-    public double getbalance (@PathVariable Long id){
-        return  theAccountData.getCurrentBal(id);
+    @RequestMapping (path = "/{id}/currentbalance",method = RequestMethod.GET)
+    public Account getbalance (@PathVariable Long id){
+        return  theAccountData.currentAccount(id);
 
     }
 }
