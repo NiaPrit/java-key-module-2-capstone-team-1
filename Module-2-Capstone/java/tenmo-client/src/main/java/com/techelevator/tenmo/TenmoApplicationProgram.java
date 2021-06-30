@@ -68,34 +68,44 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
+		// TODO - Put code for this process here
 		
 	}
 
 	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
+		// TODO - Put code for this process here
 		
 	}
 
 	private void viewPendingRequests() {
-		// TODO Auto-generated method stub
+		// TODO - Put code for this process here
 		
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
+		// TODO - Put code for this process here
 		
 	}
 
 	private void requestBucks() {
-		// TODO Auto-generated method stub
+		// TODO - Put code for this process here
 		
 	}
 	
 	private void exitProgram() {
 		System.exit(0);
 	}
-
+	/***********************************************************************************
+	 * The code below works and should NOT need to be changed
+	 * 
+	 * It contains methods you may use in your processing
+	 * 
+	 * Consider reviewing it to at least understand it's general functionality
+	 *     (what it returns, receives and does) in case your need it.
+	 * 
+	 * Remember: DRY - Don't Repeat Yourself 
+	 *                (Don't write new code if functionality already exists)
+	 ************************************************************************************/
 	private void registerAndLogin() {
 		while(!isAuthenticated()) {
 			String choice = (String)console.getChoiceFromOptions(LOGIN_MENU_OPTIONS);
