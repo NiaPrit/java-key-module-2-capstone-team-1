@@ -7,6 +7,7 @@ import com.techelevator.tenmo.models.account.Account;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -57,7 +58,7 @@ public class ConsoleService {
 	}
 
 	public String getUserInput(String prompt) {
-		out.print(prompt+": ");
+		out.print(prompt + ": ");
 		out.flush();
 		return in.nextLine();
 	}
@@ -65,23 +66,32 @@ public class ConsoleService {
 	public Integer getUserInputInteger(String prompt) {
 		Integer result = null;
 		do {
-			out.print(prompt+": ");
+			out.print(prompt + ": ");
 			out.flush();
 			String userInput = in.nextLine();
 			try {
 				result = Integer.parseInt(userInput);
-			} catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				out.println(System.lineSeparator() + "*** " + userInput + " is not valid ***" + System.lineSeparator());
 			}
-		} while(result == null);
+		} while (result == null);
 		return result;
 	}
-	public void getCurrentBalFromUser (Account currentAccount) {
+
+	public void getCurrentBalFromUser(Account currentAccount) {
 		System.out.println("Your current account balance is: $" + currentAccount.getBalance());
 	}
 
-	public void getAllUsers (User[] users){
-	System.out.println("-".repeat(50));
-	System.out.println()
+	public void getAllUsers(List<User> users) {
+		System.out.println("-".repeat(50));
+		System.out.println("User Id - Name");
+		if (users.size() > 0) {
+			for (User eachUser : users) {
+				System.out.println(eachUser.getId() + " - " + eachUser.getUsername());
+			}
+		} else {
+			System.out.println("\n*** No results ***");
+		}
+		System.out.println("-".repeat(50));
 	}
 }

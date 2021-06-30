@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*******************************************************************************************************
@@ -18,25 +19,17 @@ import java.util.List;
  * like to have separate controller classses base on functionality or use
 ********************************************************************************************************/
 @RestController
-public class ApiController {
+public class AccountController {
+
     AccountDAO theAccountData;
-    UserDAO userData;
-    
-    public ApiController (AccountDAO accountMethod) {
+
+    public AccountController(AccountDAO accountMethod) {
         this.theAccountData = accountMethod;
     }
 
 
-    public ApiController (UserDAO userMethod) {
-        this.userData = userMethod;
-    }
-
-    @RequestMapping (path = "/users",method = RequestMethod.GET)
-    public List<User> getAllUsers (){
-        return userData.findAll();
-    }
     @RequestMapping (path = "/accounts/{id}/currentbalance",method = RequestMethod.GET)
-    public Account getbalance (@PathVariable Long id){
+    public Account getBalance (@PathVariable Long id){
         return  theAccountData.currentAccount(id);
 
     }

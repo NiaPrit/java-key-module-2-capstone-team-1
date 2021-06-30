@@ -8,6 +8,8 @@ import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
 
+import java.util.Arrays;
+
 public class TenmoApplicationProgram {
 
 private static final String API_BASE_URL = "http://localhost:8080/";
@@ -89,7 +91,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void sendBucks() {
 		// TODO - Put code for this process here
-		
+		console.getAllUsers(Arrays.asList(services.listUsers()));
 	}
 
 	private void requestBucks() {
