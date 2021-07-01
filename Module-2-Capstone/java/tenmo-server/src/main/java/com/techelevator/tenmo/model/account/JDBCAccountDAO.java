@@ -28,6 +28,18 @@ public class JDBCAccountDAO implements AccountDAO{
         return null;
     }
 
+    @Override
+    public void updateSenderAccount(long accountId, double amountToUpdate) {
+       String searchString = "UPDATE accounts SET balance =? WHERE account_id = ?";
+           dao.update(searchString, currentAccount(accountId).getBalance() - amountToUpdate, accountId);
+   }
+
+    @Override
+    public void updateReceiverAccount(long accountId, double amountToUpdate) {
+        String searchString = "UPDATE accounts SET balance =? WHERE account_id = ?";
+        dao.update(searchString, currentAccount(accountId).getBalance() + amountToUpdate, accountId);
+    }
+
     private Account mapRowToAccount (SqlRowSet results){
        Account account = new Account();
        account.setAccountId(results.getLong("account_id"));

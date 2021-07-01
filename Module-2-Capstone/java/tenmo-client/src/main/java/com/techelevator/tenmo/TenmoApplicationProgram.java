@@ -2,7 +2,6 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.UserCredentials;
-import com.techelevator.tenmo.models.account.Account;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
@@ -76,12 +75,12 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewCurrentBalance() {
 		// TODO - Put code for this process here
-		console.getCurrentBalFromUser(services.getCurentBal(currentUser.getUser().getId()));
+		console.viewCurrentBalFromUser(services.getCurrentBal(currentUser.getUser().getId()));
     }
 
 	private void viewTransferHistory() {
 		// TODO - Put code for this process here
-		
+		console.viewAllTransfers(services.listAllTransfers(currentUser.getUser().getId()));
 	}
 
 	private void viewPendingRequests() {
@@ -92,6 +91,21 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	private void sendBucks() {
 		// TODO - Put code for this process here
 		console.getAllUsers(Arrays.asList(services.listUsers()));
+		int userId = console.getUserInputInteger("Enter ID of user you are sending to (0 to cancel)");
+		if (userId == 0) {
+			mainMenu();
+		} else {
+			double amountToTransfer = console.getUserInputInteger("Enter amount ($)");
+			if (amountToTransfer > console.userCurrentBalance(services.getCurrentBal(currentUser.getUser().getId()))) {
+				console.errorAmountMessage();
+				mainMenu();
+			} else {
+				services.sendAmountFromUser(currentUser.getUser().getId(), amountToTransfer);
+				services.receiveAmountFromUser(userId, amountToTransfer);
+				console.transferAmount();
+
+			}
+		}
 	}
 
 	private void requestBucks() {

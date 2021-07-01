@@ -1,8 +1,10 @@
 package com.techelevator.view;
 
 
+import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.account.Account;
+import com.techelevator.tenmo.models.transfers.Transfer;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -78,7 +80,7 @@ public class ConsoleService {
 		return result;
 	}
 
-	public void getCurrentBalFromUser(Account currentAccount) {
+	public void viewCurrentBalFromUser(Account currentAccount) {
 		System.out.println("Your current account balance is: $" + currentAccount.getBalance());
 	}
 
@@ -94,4 +96,25 @@ public class ConsoleService {
 		}
 		System.out.println("-".repeat(50));
 	}
+
+	public double userCurrentBalance(Account currentAccount) {
+		return currentAccount.getBalance();
+	}
+
+	public void transferAmount() {
+		System.out.println("-".repeat(50));
+		System.out.println("Thank you for the transfer!");
+		System.out.println("-".repeat(50));
+	}
+
+	public void errorAmountMessage() {
+		System.out.println("-".repeat(50));
+		System.out.println("Insufficient balance, please try again!");
+		System.out.println("-".repeat(50));
+	}
+
+	public void viewAllTransfers(Transfer[] transfers) {
+		System.out.println(transfers);
+	}
+
 }
