@@ -5,10 +5,12 @@ import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.account.Account;
 import com.techelevator.tenmo.models.transfers.Transfer;
+import com.techelevator.tenmo.services.TenmoApplicationServices;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +18,8 @@ public class ConsoleService {
 
 	private PrintWriter out;
 	private Scanner in;
+	private AuthenticatedUser currentUser;
+	private TenmoApplicationServices services = new TenmoApplicationServices("http://localhost:8080/");
 
 	public ConsoleService(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output, true);
@@ -112,6 +116,19 @@ public class ConsoleService {
 		System.out.println("Insufficient balance, please try again!");
 		System.out.println("-".repeat(50));
 	}
+
+	public void transferDetailMenu() {
+		System.out.println("-".repeat(50));
+		System.out.println("Transfer Details");
+		System.out.println("-".repeat(50));
+	}
+
+	public void transferMainMenu() {
+		System.out.println("-".repeat(50));
+		System.out.println("Transfer ID - From/To - Amount");
+		System.out.println("-".repeat(50));
+	}
+
 
 
 	/* public void getAllTransfers(List<Transfer> transfers) {

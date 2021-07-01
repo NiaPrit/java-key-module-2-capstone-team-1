@@ -85,10 +85,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		// TODO - Put code for this process here
 		List<Transfer> theTransferList = Arrays.asList(services.listAllTransfers(currentUser.getUser().getId()));
 		User aUser = new User();
-		System.out.println("-".repeat(50));
-		System.out.println("Transfer ID - From/To - Amount");
-		System.out.println("-".repeat(50));
-			for(Transfer aTransfer: theTransferList){
+		console.transferMainMenu();
+		for(Transfer aTransfer: theTransferList){
 			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
 				aUser.setId((int) aTransfer.getAccountTo());
 				System.out.println(aTransfer.getTransferId() + " - To: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
@@ -97,27 +95,23 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 				aUser.setId((int) aTransfer.getAccountFrom());
 				System.out.println(aTransfer.getTransferId() + " - From: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
 			}
-			}
+		}
 		int transferId = console.getUserInputInteger("Enter ID of the transfer you wish to view (0 to cancel)");
 		if (transferId == 0) {
 			mainMenu();
 		} else {
 			Transfer theTransfer = services.listTransferById(transferId);
-			System.out.println("-".repeat(50));
-			System.out.println("Transfer Details");
-			System.out.println("-".repeat(50));
+			console.transferDetailMenu();
 			if (currentUser.getUser().getId() == theTransfer.getAccountFrom()) {
-				aUser.setId((int) theTransfer.getAccountTo());
 				System.out.println("Id: " + theTransfer.getTransferId());
 				System.out.println("From: Me, Myself, And I");
-				System.out.println("To: " + aUser.getUsername());
+				System.out.println("To: " + theTransfer.getAccountTo());
 				System.out.println("Type: " + theTransfer.getTransferTypeId());
 				System.out.println("Status: " + theTransfer.getTransferStatusId());
 				System.out.println("Amount: $" + theTransfer.getAmount());
 			} else if (currentUser.getUser().getId() == theTransfer.getAccountTo()){
-				aUser.setId((int) theTransfer.getAccountFrom());
 				System.out.println("Id: " + theTransfer.getTransferId());
-				System.out.println("From : " + aUser.getUsername());
+				System.out.println("From : " + theTransfer.getAccountFrom());
 				System.out.println("To : Me, Myself, And I");
 				System.out.println("Type: " + theTransfer.getTransferTypeId());
 				System.out.println("Status: " + theTransfer.getTransferStatusId());
