@@ -44,7 +44,8 @@ public class TenmoApplicationServices {
         return theApi.getForObject(BASE_URL_API + "transfers/" + accountId, Transfer[].class);
     }
 
-    public Transfer listTransferById(long accountId, long transferId) {
-        return theApi.getForObject(BASE_URL_API + "transfers/" + transferId, Transfer.class);
+    public Transfer listTransferById(long transferId) {
+        return theApi.getForObject(BASE_URL_API + "transfers/user/" + transferId, Transfer.class);
     }
+
 }

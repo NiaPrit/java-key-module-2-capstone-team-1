@@ -113,7 +113,8 @@ public class ConsoleService {
 		System.out.println("-".repeat(50));
 	}
 
-	public void getAllTransfers(List<Transfer> transfers) {
+
+	/* public void getAllTransfers(List<Transfer> transfers) {
 		System.out.println("-".repeat(50));
 		System.out.println("Transfer ID - From/To - Amount");
 		if (transfers.size() > 0) {
@@ -125,6 +126,6 @@ public class ConsoleService {
 			System.out.println("\n*** No results ***");
 		}
 		System.out.println("-".repeat(50));
-	}
+	}*/
 
 }

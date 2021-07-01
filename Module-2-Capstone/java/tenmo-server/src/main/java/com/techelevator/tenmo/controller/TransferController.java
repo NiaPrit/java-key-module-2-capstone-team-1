@@ -17,7 +17,7 @@ public class TransferController {
     }
 
     @RequestMapping(path="/transfers/{id}", method= RequestMethod.GET)
-    public List<Transfer> getTransferFromUser(@PathVariable int id) {
+    public List<Transfer> getTransferFromUser(@PathVariable long id) {
         List<Transfer> theTransfers = new ArrayList<>();
         theTransfers = theTransferData.allTransfer(id);
         return theTransfers;
@@ -28,7 +28,7 @@ public class TransferController {
         theTransferData.saveTransfer(aTransfer);
     }
 
-    @RequestMapping(path="/transfers/{tid}", method= RequestMethod.GET)
+    @RequestMapping(path="/transfers/user/{tid}", method= RequestMethod.GET)
     public Transfer getTransferFromId(@PathVariable Long tid) {
         return theTransferData.getTransferById(tid);
     }

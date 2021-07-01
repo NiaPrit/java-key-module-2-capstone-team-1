@@ -21,7 +21,7 @@ public class JDBCTransferDAO implements TransferDAO{
     @Override
     public List<Transfer> allTransfer(long accountFromId) {
         List<Transfer> allTransfers = new ArrayList<>();
-        String searchString = "SELECT * from transfers where account_from=? or account_to = ?";
+        String searchString = "SELECT * from transfers where account_from =? or account_to = ?";
 
         SqlRowSet results = dao.queryForRowSet(searchString, accountFromId, accountFromId);
         while (results.next()) {

@@ -1,6 +1,7 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
+import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.UserCredentials;
 import com.techelevator.tenmo.models.transfers.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
@@ -83,23 +84,48 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	private void viewTransferHistory() {
 		// TODO - Put code for this process here
 		List<Transfer> theTransferList = Arrays.asList(services.listAllTransfers(currentUser.getUser().getId()));
+		User aUser = new User();
+		System.out.println("-".repeat(50));
+		System.out.println("Transfer ID - From/To - Amount");
+		System.out.println("-".repeat(50));
+			for(Transfer aTransfer: theTransferList){
+			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
+				aUser.setId((int) aTransfer.getAccountTo());
+				System.out.println(aTransfer.getTransferId() + " - To: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
+			}
+			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
+				aUser.setId((int) aTransfer.getAccountFrom());
+				System.out.println(aTransfer.getTransferId() + " - From: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
+			}
+			}
 		int transferId = console.getUserInputInteger("Enter ID of the transfer you wish to view (0 to cancel)");
 		if (transferId == 0) {
 			mainMenu();
 		} else {
-			for(Transfer aTransfer: theTransferList){
-			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
-				System.out.println(aTransfer.getTransferId() + "To: " + currentUser.getUser().getUsername() + " $" + aTransfer.getAmount());
-				mainMenu();
-			}
-			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
-				System.out.println(aTransfer.getTransferId() + "From: " + aTransfer.getAccountFrom() + " $" + aTransfer.getAmount());
-				mainMenu();
-			}
-
+			Transfer theTransfer = services.listTransferById(transferId);
+			System.out.println("-".repeat(50));
+			System.out.println("Transfer Details");
+			System.out.println("-".repeat(50));
+			if (currentUser.getUser().getId() == theTransfer.getAccountFrom()) {
+				aUser.setId((int) theTransfer.getAccountTo());
+				System.out.println("Id: " + theTransfer.getTransferId());
+				System.out.println("From: Me, Myself, And I");
+				System.out.println("To: " + aUser.getUsername());
+				System.out.println("Type: " + theTransfer.getTransferTypeId());
+				System.out.println("Status: " + theTransfer.getTransferStatusId());
+				System.out.println("Amount: $" + theTransfer.getAmount());
+			} else if (currentUser.getUser().getId() == theTransfer.getAccountTo()){
+				aUser.setId((int) theTransfer.getAccountFrom());
+				System.out.println("Id: " + theTransfer.getTransferId());
+				System.out.println("From : " + aUser.getUsername());
+				System.out.println("To : Me, Myself, And I");
+				System.out.println("Type: " + theTransfer.getTransferTypeId());
+				System.out.println("Status: " + theTransfer.getTransferStatusId());
+				System.out.println("Amount: $" + theTransfer.getAmount());
 			}
 		}
-	}
+		}
+
 
 	private void viewPendingRequests() {
 		// TODO - Put code for this process here
