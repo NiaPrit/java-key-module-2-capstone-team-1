@@ -113,8 +113,18 @@ public class ConsoleService {
 		System.out.println("-".repeat(50));
 	}
 
-	public void viewAllTransfers(Transfer[] transfers) {
-		System.out.println(transfers);
+	public void getAllTransfers(List<Transfer> transfers) {
+		System.out.println("-".repeat(50));
+		System.out.println("Transfer ID - From/To - Amount");
+		if (transfers.size() > 0) {
+			if
+			for (Transfer eachTransfer : transfers) {
+				System.out.println(eachTransfer.getTransferId() + " - " + eachTransfer.getAccountFrom());
+			}
+		} else {
+			System.out.println("\n*** No results ***");
+		}
+		System.out.println("-".repeat(50));
 	}
 
 }

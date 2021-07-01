@@ -2,12 +2,14 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.UserCredentials;
+import com.techelevator.tenmo.models.transfers.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class TenmoApplicationProgram {
 
@@ -80,12 +82,28 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO - Put code for this process here
-		console.viewAllTransfers(services.listAllTransfers(currentUser.getUser().getId()));
+		List<Transfer> theTransferList = Arrays.asList(services.listAllTransfers(currentUser.getUser().getId()));
+		int transferId = console.getUserInputInteger("Enter ID of the transfer you wish to view (0 to cancel)");
+		if (transferId == 0) {
+			mainMenu();
+		} else {
+			for(Transfer aTransfer: theTransferList){
+			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
+				System.out.println(aTransfer.getTransferId() + "To: " + currentUser.getUser().getUsername() + " $" + aTransfer.getAmount());
+				mainMenu();
+			}
+			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
+				System.out.println(aTransfer.getTransferId() + "From: " + aTransfer.getAccountFrom() + " $" + aTransfer.getAmount());
+				mainMenu();
+			}
+
+			}
+		}
 	}
 
 	private void viewPendingRequests() {
 		// TODO - Put code for this process here
-		
+
 	}
 
 	private void sendBucks() {

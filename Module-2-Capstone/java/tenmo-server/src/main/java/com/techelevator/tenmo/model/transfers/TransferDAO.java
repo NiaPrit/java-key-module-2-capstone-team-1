@@ -8,4 +8,6 @@ public interface TransferDAO {
 
     void saveTransfer(Transfer newTransfer);
 
+    Transfer getTransferById(long transferId);
+
 }

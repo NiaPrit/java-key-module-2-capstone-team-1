@@ -6,4 +6,8 @@ public interface TransferDAO {
 
     List<Transfer> allTransfer(long accountFromId);
 
+    void saveTransfer(Transfer newTransfer);
+
+    Transfer getTransferById(long transferId);
+
 }
