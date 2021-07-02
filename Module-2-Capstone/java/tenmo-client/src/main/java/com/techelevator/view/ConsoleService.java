@@ -130,6 +130,23 @@ public class ConsoleService {
 	}
 
 
+	public void eachTransferMenuOptionsOne(Transfer theTransfer) {
+		System.out.println("Id: " + theTransfer.getTransferId());
+		System.out.println("From: Me, Myself, And I");
+		System.out.println("To: " + theTransfer.getAccountTo());
+		System.out.println("Type: " + theTransfer.getTransferTypeId());
+		System.out.println("Status: " + theTransfer.getTransferStatusId());
+		System.out.println("Amount: $" + theTransfer.getAmount());
+	}
+
+	public void eachTransferMenuOptionsTwo(Transfer theTransfer) {
+		System.out.println("Id: " + theTransfer.getTransferId());
+		System.out.println("From : " + theTransfer.getAccountFrom());
+		System.out.println("To : Me, Myself, And I");
+		System.out.println("Type: " + theTransfer.getTransferTypeId());
+		System.out.println("Status: " + theTransfer.getTransferStatusId());
+		System.out.println("Amount: $" + theTransfer.getAmount());
+	}
 
 	/* public void getAllTransfers(List<Transfer> transfers) {
 		System.out.println("-".repeat(50));

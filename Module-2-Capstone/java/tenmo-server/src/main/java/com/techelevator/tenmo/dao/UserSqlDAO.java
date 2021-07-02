@@ -28,6 +28,11 @@ public class UserSqlDAO implements UserDAO {
     }
 
     @Override
+    public String findUsernameById(int id) {
+        return jdbcTemplate.queryForObject("SELECT username from users where user_id = ?", String.class, id);
+    }
+
+    @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         String sql = "select * from users";

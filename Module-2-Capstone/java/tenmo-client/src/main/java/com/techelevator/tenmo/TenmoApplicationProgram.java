@@ -3,6 +3,7 @@ package com.techelevator.tenmo;
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.UserCredentials;
+import com.techelevator.tenmo.models.dao.UserSqlDAO;
 import com.techelevator.tenmo.models.transfers.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
@@ -103,19 +104,9 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 			Transfer theTransfer = services.listTransferById(transferId);
 			console.transferDetailMenu();
 			if (currentUser.getUser().getId() == theTransfer.getAccountFrom()) {
-				System.out.println("Id: " + theTransfer.getTransferId());
-				System.out.println("From: Me, Myself, And I");
-				System.out.println("To: " + theTransfer.getAccountTo());
-				System.out.println("Type: " + theTransfer.getTransferTypeId());
-				System.out.println("Status: " + theTransfer.getTransferStatusId());
-				System.out.println("Amount: $" + theTransfer.getAmount());
+				console.eachTransferMenuOptionsOne(theTransfer);
 			} else if (currentUser.getUser().getId() == theTransfer.getAccountTo()){
-				System.out.println("Id: " + theTransfer.getTransferId());
-				System.out.println("From : " + theTransfer.getAccountFrom());
-				System.out.println("To : Me, Myself, And I");
-				System.out.println("Type: " + theTransfer.getTransferTypeId());
-				System.out.println("Status: " + theTransfer.getTransferStatusId());
-				System.out.println("Amount: $" + theTransfer.getAmount());
+				console.eachTransferMenuOptionsTwo(theTransfer);
 			}
 		}
 		}
