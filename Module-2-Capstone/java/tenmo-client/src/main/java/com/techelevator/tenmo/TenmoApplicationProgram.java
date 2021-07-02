@@ -3,7 +3,6 @@ package com.techelevator.tenmo;
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.UserCredentials;
-import com.techelevator.tenmo.models.dao.UserSqlDAO;
 import com.techelevator.tenmo.models.transfers.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
@@ -90,11 +89,11 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		for(Transfer aTransfer: theTransferList){
 			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
 				aUser.setId((int) aTransfer.getAccountTo());
-				System.out.println(aTransfer.getTransferId() + " - To: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
+				System.out.println(aTransfer.getTransferId() + " - To: " + services.getName((int) aTransfer.getAccountTo()) + " - $" + aTransfer.getAmount());
 			}
 			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
 				aUser.setId((int) aTransfer.getAccountFrom());
-				System.out.println(aTransfer.getTransferId() + " - From: " + aUser.getUsername() + " - $" + aTransfer.getAmount());
+				System.out.println(aTransfer.getTransferId() + " - From: " + services.getName((int) aTransfer.getAccountFrom()) + " - $" + aTransfer.getAmount());
 			}
 		}
 		int transferId = console.getUserInputInteger("Enter ID of the transfer you wish to view (0 to cancel)");
@@ -124,14 +123,24 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		if (userId == 0) {
 			mainMenu();
 		} else {
-			double amountToTransfer = console.getUserInputInteger("Enter amount ($)");
-			if (amountToTransfer > console.userCurrentBalance(services.getCurrentBal(currentUser.getUser().getId()))) {
+			double amountToTransfer = console.getUserInputDouble("Enter amount ($)");
+
+			if (amountToTransfer<=0 || amountToTransfer > console.userCurrentBalance(services.getCurrentBal(currentUser.getUser().getId()))) {
 				console.errorAmountMessage();
 				mainMenu();
 			} else {
 				services.sendAmountFromUser(currentUser.getUser().getId(), amountToTransfer);
 				services.receiveAmountFromUser(userId, amountToTransfer);
 				console.transferAmount();
+
+			Transfer newTransfer = new Transfer();
+				newTransfer.setTransferTypeId(2L);
+				newTransfer.setTransferStatusId(2L);
+				newTransfer.setAccountFrom(currentUser.getUser().getId());
+				newTransfer.setAccountTo(userId);
+				newTransfer.setAmount(amountToTransfer);
+				services.createTransfer(newTransfer);
+
 
 			}
 		}

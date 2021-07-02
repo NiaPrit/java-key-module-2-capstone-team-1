@@ -2,6 +2,7 @@ package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.UserDAO;
 import com.techelevator.tenmo.model.User;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +26,11 @@ public class UserController {
             System.out.println("No Users Exist");
         }
         return theUsers;
+    }
+
+    @RequestMapping(path = "/user/{id}/username",method = RequestMethod.GET)
+    public String getName (@PathVariable int id ){
+      String getName = userData.findUsernameById(id);
+      return getName;
     }
 }

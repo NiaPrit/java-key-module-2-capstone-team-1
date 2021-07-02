@@ -5,7 +5,10 @@ import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.account.Account;
 import com.techelevator.tenmo.models.transfers.Transfer;
 import io.cucumber.java.bs.A;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 /*******************************************************************************************************
@@ -46,6 +49,18 @@ public class TenmoApplicationServices {
 
     public Transfer listTransferById(long transferId) {
         return theApi.getForObject(BASE_URL_API + "transfers/user/" + transferId, Transfer.class);
+    }
+    public String getName (int id){
+        return theApi.getForObject(BASE_URL_API + "user/" + id + "/username",String.class);
+    }
+
+    public void createTransfer(Transfer theTransfer){
+        HttpHeaders theHeader = new HttpHeaders();
+        theHeader.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity theEntity = new HttpEntity(theTransfer, theHeader);
+
+        theApi.postForObject(BASE_URL_API + "transfers", theEntity, Transfer.class);
+
     }
 
 }

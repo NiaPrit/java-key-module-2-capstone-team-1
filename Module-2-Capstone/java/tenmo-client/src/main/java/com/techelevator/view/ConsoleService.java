@@ -84,6 +84,22 @@ public class ConsoleService {
 		return result;
 	}
 
+	public Double getUserInputDouble(String prompt) {
+		Double result = null;
+		do {
+			out.print(prompt + ": ");
+			out.flush();
+			String userInput = in.nextLine();
+			try {
+				result = Double.parseDouble(userInput);
+
+			} catch (NumberFormatException e) {
+				out.println(System.lineSeparator() + "*** " + userInput + " is not valid ***" + System.lineSeparator());
+			}
+		} while (result == null);
+		return result;
+	}
+
 	public void viewCurrentBalFromUser(Account currentAccount) {
 		System.out.println("Your current account balance is: $" + currentAccount.getBalance());
 	}
@@ -113,7 +129,7 @@ public class ConsoleService {
 
 	public void errorAmountMessage() {
 		System.out.println("-".repeat(50));
-		System.out.println("Insufficient balance, please try again!");
+		System.out.println("Insufficient amount, please try again!");
 		System.out.println("-".repeat(50));
 	}
 
@@ -129,37 +145,49 @@ public class ConsoleService {
 		System.out.println("-".repeat(50));
 	}
 
+	public String getTransferTypeDesc(Long typeId){
+		String transferDescription = "";
+		if (typeId == 1){
+			transferDescription = "Request";
+		}
+		else if (typeId == 2) {
+			transferDescription = "Send";
+		}
+		return transferDescription;
+	}
+
+	public String getTransferStatusDesc(Long typeId){
+		String transferDescription = "";
+		if (typeId == 1){
+			transferDescription = "Pending";
+		}
+		else if (typeId == 2) {
+			transferDescription = "Approved";
+		}else if (typeId == 3) {
+			transferDescription = "Rejected";
+		}
+		return transferDescription;
+	}
+
+
 
 	public void eachTransferMenuOptionsOne(Transfer theTransfer) {
 		System.out.println("Id: " + theTransfer.getTransferId());
 		System.out.println("From: Me, Myself, And I");
-		System.out.println("To: " + theTransfer.getAccountTo());
-		System.out.println("Type: " + theTransfer.getTransferTypeId());
-		System.out.println("Status: " + theTransfer.getTransferStatusId());
+		System.out.println("To: " + services.getName((int) theTransfer.getAccountTo()));
+		System.out.println("Type: " +  getTransferTypeDesc(theTransfer.getTransferTypeId()));
+		System.out.println("Status: " + getTransferStatusDesc(theTransfer.getTransferStatusId()));
 		System.out.println("Amount: $" + theTransfer.getAmount());
 	}
 
 	public void eachTransferMenuOptionsTwo(Transfer theTransfer) {
 		System.out.println("Id: " + theTransfer.getTransferId());
-		System.out.println("From : " + theTransfer.getAccountFrom());
+		System.out.println("From : " + services.getName((int) theTransfer.getAccountFrom()));
 		System.out.println("To : Me, Myself, And I");
-		System.out.println("Type: " + theTransfer.getTransferTypeId());
-		System.out.println("Status: " + theTransfer.getTransferStatusId());
+		System.out.println("Type: " + getTransferTypeDesc(theTransfer.getTransferTypeId()));
+		System.out.println("Status: " + getTransferStatusDesc(theTransfer.getTransferStatusId()));
 		System.out.println("Amount: $" + theTransfer.getAmount());
 	}
 
-	/* public void getAllTransfers(List<Transfer> transfers) {
-		System.out.println("-".repeat(50));
-		System.out.println("Transfer ID - From/To - Amount");
-		if (transfers.size() > 0) {
-			if
-			for (Transfer eachTransfer : transfers) {
-				System.out.println(eachTransfer.getTransferId() + " - " + eachTransfer.getAccountFrom());
-			}
-		} else {
-			System.out.println("\n*** No results ***");
-		}
-		System.out.println("-".repeat(50));
-	}*/
 
 }

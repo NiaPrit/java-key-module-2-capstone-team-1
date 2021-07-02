@@ -24,8 +24,10 @@ public class TransferController {
     }
 
     @RequestMapping(path="/transfers", method=RequestMethod.POST)
-    public void createTransfer(@RequestBody Transfer aTransfer) {
+    public Transfer createTransfer(@RequestBody Transfer aTransfer) {
+
         theTransferData.saveTransfer(aTransfer);
+        return aTransfer;
     }
 
     @RequestMapping(path="/transfers/user/{tid}", method= RequestMethod.GET)
