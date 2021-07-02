@@ -9,6 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 /*******************************************************************************************************
@@ -41,6 +42,7 @@ public class TenmoApplicationServices {
 
     public void receiveAmountFromUser(int accountId, double amountToSend) {
         theApi.put(BASE_URL_API + "accounts/" + accountId + "/transfer/receive?receiveAmount=" + amountToSend, Account.class);
+
     }
 
     public Transfer[] listAllTransfers(long accountId) {

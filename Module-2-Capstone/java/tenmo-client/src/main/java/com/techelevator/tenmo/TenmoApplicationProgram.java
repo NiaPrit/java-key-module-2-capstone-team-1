@@ -8,6 +8,7 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -100,14 +101,20 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		if (transferId == 0) {
 			mainMenu();
 		} else {
-			Transfer theTransfer = services.listTransferById(transferId);
+			try{Transfer theTransfer = services.listTransferById(transferId);
+
 			console.transferDetailMenu();
 			if (currentUser.getUser().getId() == theTransfer.getAccountFrom()) {
 				console.eachTransferMenuOptionsOne(theTransfer);
 			} else if (currentUser.getUser().getId() == theTransfer.getAccountTo()){
 				console.eachTransferMenuOptionsTwo(theTransfer);
+			} }
+			catch(Exception e){
+				System.out.println("Transfer Id Invalid Please try Again");
+				mainMenu();
 			}
 		}
+
 		}
 
 
@@ -130,7 +137,11 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 				mainMenu();
 			} else {
 				services.sendAmountFromUser(currentUser.getUser().getId(), amountToTransfer);
-				services.receiveAmountFromUser(userId, amountToTransfer);
+				try{services.receiveAmountFromUser(userId, amountToTransfer);}
+				catch(Exception e){
+					System.out.println("User Id for account sent does not exist");
+					mainMenu();
+				}
 				console.transferAmount();
 
 			Transfer newTransfer = new Transfer();
