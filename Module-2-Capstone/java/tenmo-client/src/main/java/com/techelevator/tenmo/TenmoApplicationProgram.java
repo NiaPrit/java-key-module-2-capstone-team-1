@@ -85,24 +85,13 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	private void viewTransferHistory() {
 		// TODO - Put code for this process here
 		List<Transfer> theTransferList = Arrays.asList(services.listAllTransfers(currentUser.getUser().getId()));
-		User aUser = new User();
 		console.transferMainMenu();
-		for(Transfer aTransfer: theTransferList){
-			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
-				aUser.setId((int) aTransfer.getAccountTo());
-				System.out.println(aTransfer.getTransferId() + " - To: " + services.getName((int) aTransfer.getAccountTo()) + " - $" + aTransfer.getAmount());
-			}
-			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
-				aUser.setId((int) aTransfer.getAccountFrom());
-				System.out.println(aTransfer.getTransferId() + " - From: " + services.getName((int) aTransfer.getAccountFrom()) + " - $" + aTransfer.getAmount());
-			}
-		}
+		console.showTransfersFromUser(currentUser, theTransferList);
 		int transferId = console.getUserInputInteger("Enter ID of the transfer you wish to view (0 to cancel)");
 		if (transferId == 0) {
 			mainMenu();
 		} else {
 			try{Transfer theTransfer = services.listTransferById(transferId);
-
 			console.transferDetailMenu();
 			if (currentUser.getUser().getId() == theTransfer.getAccountFrom()) {
 				console.eachTransferMenuOptionsOne(theTransfer);
@@ -114,7 +103,6 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 				mainMenu();
 			}
 		}
-
 		}
 
 
@@ -131,7 +119,6 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 			mainMenu();
 		} else {
 			double amountToTransfer = console.getUserInputDouble("Enter amount ($)");
-
 			if (amountToTransfer<=0 || amountToTransfer > console.userCurrentBalance(services.getCurrentBal(currentUser.getUser().getId()))) {
 				console.errorAmountMessage();
 				mainMenu();
@@ -143,7 +130,6 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 					mainMenu();
 				}
 				console.transferAmount();
-
 			Transfer newTransfer = new Transfer();
 				newTransfer.setTransferTypeId(2L);
 				newTransfer.setTransferStatusId(2L);

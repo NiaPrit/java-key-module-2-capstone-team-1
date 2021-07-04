@@ -189,5 +189,18 @@ public class ConsoleService {
 		System.out.println("Amount: $" + theTransfer.getAmount());
 	}
 
+	public void showTransfersFromUser(AuthenticatedUser currentUser, List<Transfer> theTransferList) {
+		User aUser = new User();
+		for(Transfer aTransfer: theTransferList){
+			if (currentUser.getUser().getId() == aTransfer.getAccountFrom()) {
+				aUser.setId((int) aTransfer.getAccountTo());
+				System.out.println(aTransfer.getTransferId() + " - To: " + services.getName((int) aTransfer.getAccountTo()) + " - $" + aTransfer.getAmount());
+			}
+			else if(currentUser.getUser().getId() == aTransfer.getAccountTo()) {
+				aUser.setId((int) aTransfer.getAccountFrom());
+				System.out.println(aTransfer.getTransferId() + " - From: " + services.getName((int) aTransfer.getAccountFrom()) + " - $" + aTransfer.getAmount());
+			}
+		}
+	}
 
 }
