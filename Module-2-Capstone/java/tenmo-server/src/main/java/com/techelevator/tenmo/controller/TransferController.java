@@ -23,6 +23,20 @@ public class TransferController {
         return theTransfers;
     }
 
+
+    @RequestMapping(path="/transfers/pending/from/{id}", method=RequestMethod.GET)
+    public List<Transfer> getPendingTransfersToUser(@PathVariable long id) {
+        List<Transfer> theTransfers = new ArrayList<>();
+        theTransfers = theTransferData.getPendingFromTransfersByUser(id);
+        return theTransfers;
+    }
+
+    @RequestMapping(path="/transfers", method=RequestMethod.PUT)
+    public Transfer updateTransfer(@RequestBody Transfer aTransfer) {
+        theTransferData.updateTransfer(aTransfer);
+        return aTransfer;
+    }
+
     @RequestMapping(path="/transfers", method=RequestMethod.POST)
     public Transfer createTransfer(@RequestBody Transfer aTransfer) {
 

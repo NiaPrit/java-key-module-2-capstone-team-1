@@ -127,6 +127,12 @@ public class ConsoleService {
 		System.out.println("-".repeat(50));
 	}
 
+	public void transferPending() {
+		System.out.println("-".repeat(50));
+		System.out.println("Transfer request has been complete. Pending Approval!");
+		System.out.println("-".repeat(50));
+	}
+
 	public void errorAmountMessage() {
 		System.out.println("-".repeat(50));
 		System.out.println("Insufficient amount, please try again!");
@@ -144,6 +150,26 @@ public class ConsoleService {
 		System.out.println("Transfer ID - From/To - Amount");
 		System.out.println("-".repeat(50));
 	}
+
+
+	public void pendingFromMainMenu() {
+		System.out.println("-".repeat(50));
+		System.out.println("Pending ID - Transfers To - Amount");
+		System.out.println("-".repeat(50));
+	}
+
+	public void approvalRejectTransfer() {
+		System.out.println("1: Approve");
+		System.out.println("2: Reject");
+		System.out.println("0: Don't Approve or Reject");
+	}
+
+	public void amountInsufficientApprovalMessage() {
+		System.out.println("-".repeat(50));
+		System.out.println("Insufficient amount, request will be denied!");
+		System.out.println("-".repeat(50));
+	}
+
 
 	public String getTransferTypeDesc(Long typeId){
 		String transferDescription = "";

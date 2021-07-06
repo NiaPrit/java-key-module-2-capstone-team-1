@@ -10,4 +10,7 @@ public interface TransferDAO {
 
     Transfer getTransferById(long transferId);
 
+    List<Transfer> getPendingFromTransfersByUser(long accountId);
+
+    void updateTransfer(Transfer aTransfer);
 }

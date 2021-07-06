@@ -37,7 +37,12 @@ public class JDBCTransferDAO implements TransferDAO{
         newTransfer.setTransferId(getNextTransferId());
 
         dao.update(searchString,newTransfer.getTransferId(), newTransfer.getTransferTypeId(), newTransfer.getTransferStatusId(), newTransfer.getAccountFrom(), newTransfer.getAccountTo(), newTransfer.getAmount());
+    }
 
+    @Override
+    public void updateTransfer(Transfer aTransfer) {
+        String searchString = "UPDATE transfers SET transfer_type_id =?, transfer_status_id = ?, account_from=?, account_to=?, amount=? where transfer_id = ?";
+        dao.update(searchString, aTransfer.getTransferTypeId(), aTransfer.getTransferStatusId(), aTransfer.getAccountFrom(), aTransfer.getAccountTo(), aTransfer.getAmount(), aTransfer.getTransferId());
     }
 
 
@@ -50,6 +55,19 @@ public class JDBCTransferDAO implements TransferDAO{
          return transferResult = mapRowToTransfer(results);
         }
         return null;
+    }
+
+
+    @Override
+    public List<Transfer> getPendingFromTransfersByUser(long accountId) {
+        List<Transfer> allTransfers = new ArrayList<>();
+        String searchString = "SELECT * from transfers where account_from = ? and transfer_status_id = ?";
+        SqlRowSet results = dao.queryForRowSet(searchString, accountId, 1);
+        while (results.next()) {
+            Transfer transferResult = mapRowToTransfer(results);
+            allTransfers.add(transferResult);
+        }
+        return allTransfers;
     }
 
 

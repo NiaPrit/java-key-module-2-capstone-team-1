@@ -62,7 +62,18 @@ public class TenmoApplicationServices {
         HttpEntity theEntity = new HttpEntity(theTransfer, theHeader);
 
         theApi.postForObject(BASE_URL_API + "transfers", theEntity, Transfer.class);
-
     }
 
+    public void updateTransfer(Transfer aTransfer) {
+        HttpHeaders theHeader = new HttpHeaders();
+        theHeader.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity theEntity = new HttpEntity(aTransfer, theHeader);
+
+        theApi.exchange(BASE_URL_API + "transfers", HttpMethod.PUT, theEntity, Transfer.class);
+    }
+
+
+    public Transfer[] listAllFromPendingTransfers(long accountId) {
+        return theApi.getForObject(BASE_URL_API + "transfers/pending/from/" + accountId, Transfer[].class);
+    }
 }

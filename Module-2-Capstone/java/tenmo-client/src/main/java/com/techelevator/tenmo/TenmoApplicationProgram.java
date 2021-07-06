@@ -79,6 +79,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewCurrentBalance() {
 		// TODO - Put code for this process here
+
 		console.viewCurrentBalFromUser(services.getCurrentBal(currentUser.getUser().getId()));
     }
 
@@ -108,7 +109,37 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewPendingRequests() {
 		// TODO - Put code for this process here
+			double currentBalance = console.userCurrentBalance(services.getCurrentBal(currentUser.getUser().getId()));
+			List<Transfer> thePendingList = Arrays.asList(services.listAllFromPendingTransfers(currentUser.getUser().getId()));
+			console.pendingFromMainMenu();
+			console.showTransfersFromUser(currentUser, thePendingList);
+			int pendingId = console.getUserInputInteger("-".repeat(10) + "\nEnter ID of the Transfer you wish to Approve/Deny (0 to cancel)");
+			if (pendingId == 0) {
+				mainMenu();
+			} else {
+				console.approvalRejectTransfer();
+				int decisionChoice = console.getUserInputInteger("-".repeat(10) + "\nPlease choose an option");
+				if (decisionChoice == 0) {
+					mainMenu();
+				} else if (decisionChoice == 1) {
+					Transfer newTransfer = services.listTransferById(pendingId);
+					if (newTransfer.getAmount() > currentBalance) {
+						console.amountInsufficientApprovalMessage();
+						newTransfer.setTransferStatusId(3);
+						services.updateTransfer(newTransfer);
+					} else {
+						newTransfer.setTransferStatusId(2);
+						services.updateTransfer(newTransfer);
+						services.sendAmountFromUser(currentUser.getUser().getId(), newTransfer.getAmount());
+						services.receiveAmountFromUser((int) newTransfer.getAccountTo(), newTransfer.getAmount());
+					}
+				} else if (decisionChoice == 2) {
+					Transfer newTransfer = services.listTransferById(pendingId);
+					newTransfer.setTransferStatusId(3);
+					services.updateTransfer(newTransfer);
 
+				}
+			}
 	}
 
 	private void sendBucks() {
@@ -145,7 +176,24 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void requestBucks() {
 		// TODO - Put code for this process here
-		
+		console.getAllUsers(Arrays.asList(services.listUsers()));
+		int userId = console.getUserInputInteger("Enter ID of user you are sending to (0 to cancel)");
+		if (userId == 0) {
+			mainMenu();
+		} else {
+			double amountToTransfer = console.getUserInputDouble("Enter amount ($)");
+			if (amountToTransfer<=0) {
+				console.errorAmountMessage();
+				mainMenu();
+			} else {
+				Transfer newTransfer = new Transfer();
+				newTransfer.setTransferTypeId(1L);
+				newTransfer.setTransferStatusId(1L);
+				newTransfer.setAccountFrom(userId);
+				newTransfer.setAccountTo(currentUser.getUser().getId());
+				newTransfer.setAmount(amountToTransfer);
+				services.createTransfer(newTransfer);}}
+		console.transferPending();
 	}
 	
 	private void exitProgram() {
